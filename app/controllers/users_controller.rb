@@ -9,7 +9,13 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
+      flash[:notice] = "会員登録されました"
       redirect_to user
+    else
+      redirect_back fallback_location: root_path, flash: {
+        user: user,
+        error_messages: user.errors.full_messages
+      }
     end
   end
 
