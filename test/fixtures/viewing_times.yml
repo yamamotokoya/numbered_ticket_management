@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  hold_at: 2021-01-24
+  program_name: MyString
+  capacity: 1
+
+two:
+  hold_at: 2021-01-24
+  program_name: MyString
+  capacity: 1

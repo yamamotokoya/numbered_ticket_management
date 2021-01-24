@@ -2,8 +2,13 @@ ja:
   activerecord:
     models:
       user: ユーザー
+      viewing_time: 観覧回
     attributes: 
       user:
         name: 名前
         email: メールアドレス
         password: パスワード
+      viewing_time:
+        hold_at: 開園日
+        program_name: 観覧時間
+        capacity: 定員数 
