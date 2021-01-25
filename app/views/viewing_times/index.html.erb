@@ -1,0 +1,20 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">開園日</th>
+      <th scope="col">観覧時間</th>
+      <th scope="col">残数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @viewing_times.each do |viewing_time| %>
+    <tr>
+      <th scope="row"><%= viewing_time.id %></th>
+      <td><%= viewing_time.hold_at %></td>
+      <td><%= viewing_time.program_name %></td>
+      <td><%= viewing_time.capacity %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
