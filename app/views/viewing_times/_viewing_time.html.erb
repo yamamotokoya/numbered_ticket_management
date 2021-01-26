@@ -1,0 +1,13 @@
+<tr>
+  <th scope="row"><%= viewing_time.id %></th>
+  <td><%= viewing_time.hold_at %></td>
+  <td><%= viewing_time.program_name %></td>
+  <td><%= viewing_time.capacity %></td>
+  <% if current_user.viewing_time_id == viewing_time.id %> 
+    <td>予約中</td>
+  <% elsif check_user %>
+    <td><button><%= link_to "予約する", reserve_path(viewing_time) %></button></td>
+  <% else %>
+    <td>予約できません</td>
+  <% end %>
+</tr>
