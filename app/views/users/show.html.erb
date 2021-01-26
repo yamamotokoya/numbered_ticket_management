@@ -1,6 +1,15 @@
-<div>
-  <%= @user.name %>
-</div>
-<div>
-  <%= @user.email %>
+<div class="card" style="width: 50rem;">
+  <%# <img src="..." class="card-img-top" alt="..."> %>
+  <div class="card-body">
+    <h5 class="card-title">本日の予約</h5>
+      <% if !current_user.reserved? && !current_user.reserved_today? %>
+        <p class="card-text">日付: <%= current_user.viewing_time.hold_at %></p> 
+        <p class="card-text">予約回: <%= current_user.viewing_time.program_name %></p> 
+        <p class="card-text">予約時間に間に合うようにお越しください</p> 
+        <% else %>
+        <p class="card-text">本日の予約はありません</p> 
+      <% end %>
+    <%= link_to '予約画面', time_table_path, class: 'btn btn-primary' %>
+    <span style="color: red; margin-left: 10px; font-size: 12px;">＊ご予約は１日お1人様1回までです</span>
+  </div>
 </div>
