@@ -11,6 +11,11 @@
 
   <body>
     <%= render partial: 'shared/header' %>
+    <% flash.each do |type, msg| %>
+      <div class="alert alert-<%= type %>">
+        <%= msg %>
+      </div>
+    <% end %>
     <div class="container">
       <%= yield %>
     </div>

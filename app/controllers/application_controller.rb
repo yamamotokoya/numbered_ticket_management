@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::Base
+  include SessionsHelper
   include UsersHelper
-  before_action :current_user
+  add_flash_types :success, :info, :danger, :warning
+
+  def redirect_to_login
+    redirect_to login_path, danger: "ログインしてください" unless logged_in?
+  end
+
 end

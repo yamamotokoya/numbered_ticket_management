@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   root 'users#index'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
-  resources :users, only: [:show, :new, :create, :index]
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'sessions#create'
+  delete '/logout', to: 'sessions#destroy'
+  resources :users
   resources :viewing_times
   get '/time_table', to: 'viewing_times#show_time_table'
   get '/reserve/:id', to: 'viewing_times#reserve', as: 'reserve'
