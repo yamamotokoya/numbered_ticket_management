@@ -9,8 +9,8 @@ class UsersController < ApplicationController
   def create
     user = User.new(user_params)
     if user.save
-      flash[:notice] = "会員登録されました"
-      redirect_to user
+      login user
+      redirect_to time_table_path, success: '会員登録しました'
     else
       redirect_back fallback_location: root_path, flash: {
         user: user,
@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
+
 
   private
 

@@ -7,7 +7,7 @@ class ViewingTime < ApplicationRecord
   has_many :users
   
   def decrease_capacity
-    update(capacity: self.capacity -= 1)
+    update_columns(capacity: self.capacity -= 1)
   end
 
 
