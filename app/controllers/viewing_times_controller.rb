@@ -1,5 +1,6 @@
 class ViewingTimesController < ApplicationController
   before_action :redirect_to_login
+  before_action :check_admin, only: [:index, :new, :create]
   before_action :set_time_table, only: :show_time_table
   before_action :available_user?, only: :reserve
 
@@ -46,5 +47,10 @@ class ViewingTimesController < ApplicationController
   def available_user?
     redirect_to root_path unless check_user
   end
+
+  def check_admin
+    redirect_to time_table_path, danger: '管理者のみに与えられた権限です' unless admin_user?
+  end
+
 
 end

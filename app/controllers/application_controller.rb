@@ -7,4 +7,5 @@ class ApplicationController < ActionController::Base
     redirect_to login_path, danger: "ログインしてください" unless logged_in?
   end
 
+
 end
