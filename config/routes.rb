@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   post '/signup', to: 'users#create'
   resources :users, only: [:show, :new, :create, :index]
   resources :viewing_times
+  get '/time_table', to: 'viewing_times#show_time_table'
+  get '/reserve/:id', to: 'viewing_times#reserve', as: 'reserve'
 end
