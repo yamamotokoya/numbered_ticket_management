@@ -10,6 +10,7 @@
           <% if admin_user? %>
             <%= link_to '観覧回作成', new_viewing_time_path, class: 'nav-link' %>
           <% end %>
+          <%= link_to 'マイページ', current_user, class: 'nav-link' %>
           <%= link_to '予約画面', time_table_path, class: 'nav-link' %>
           <%= link_to 'ログアウト', logout_path, method: :delete, class: 'nav-link' %>
         <% else %>
