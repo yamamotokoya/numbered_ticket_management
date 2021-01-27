@@ -31,7 +31,11 @@ class ViewingTimesController < ApplicationController
     viewing_time = ViewingTime.find(params[:id])
     current_user.reserved(viewing_time)
     viewing_time.decrease_capacity
-    redirect_to time_table_path, success: "#{viewing_time.program_name}の回を予約しました"
+    redirect_to time_table_path, flash: {
+      messages: {
+        success: "#{viewing_time.program_name}の回を予約しました"
+      }
+    }
   end
 
   private
@@ -49,7 +53,11 @@ class ViewingTimesController < ApplicationController
   end
 
   def check_admin
-    redirect_to time_table_path, danger: '管理者のみに与えられた権限です' unless admin_user?
+    redirect_to time_table_path, flash: {
+      messages: {
+        danger: '管理者のみに与えられた権限です'
+      }
+    } unless admin_user?
   end
 
 

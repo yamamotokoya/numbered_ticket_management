@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user?, only: :show
+  before_action :logged_in_user?, only: [:show, :edit]
+  before_action :collect_user, only: [:show, :edit]
   def index
   end
 
@@ -11,7 +12,11 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     if user.save
       login user
-      redirect_to time_table_path, success: '会員登録しました'
+      redirect_to time_table_path, flash: {
+        messages: {
+          success: '会員登録しました'
+        }
+      }
     else
       redirect_back fallback_location: root_path, flash: {
         user: user,
@@ -21,11 +26,24 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    if @user == current_user
-      @user
+  end
+
+  def edit
+  end
+
+  def update
+    user = User.find(params[:id])
+    if user.update(user_params)
+      redirect_to user, flash: {
+        messages: {
+          success: '会員情報を更新しました'
+        }
+      }
     else
-      redirect_to time_table_path, danger: '他のユーザーのページは閲覧できません'
+      redirect_back fallback_location: time_table_path, flash: {
+        user: user,
+        error_messages: user.errors.full_messages
+      }
     end
   end
 
@@ -37,7 +55,25 @@ class UsersController < ApplicationController
   end
 
   def logged_in_user?
-    redirect_to login_path, danger: 'ログインまたは会員登録してください' unless logged_in?
+    redirect_to login_path, flash: {
+      messages: {
+        danger: 'ログインまたは会員登録してください'
+      }
+    } unless logged_in?
   end
+
+  def collect_user
+    @user = User.find(params[:id])
+    if @user == current_user
+      @user
+    else
+      redirect_to time_table_path, flash: {
+        messages: {
+          danger: '他のユーザーのページは閲覧できません'
+        }
+      }
+    end
+  end
+
 
 end
