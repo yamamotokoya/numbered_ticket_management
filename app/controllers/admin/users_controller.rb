@@ -3,7 +3,7 @@ class Admin::UsersController < ApplicationController
   before_action :collect_user, only: [:edit, :show, :update, :destroy]
 
   def index
-    @users = User.all
+    @users = User.all.page(params[:page]).per(10)
   end
 
   def new

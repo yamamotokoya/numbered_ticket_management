@@ -12,3 +12,21 @@
  *
  */
 @import "bootstrap";
+.pagination {
+  justify-content: center;
+  li {
+    a {
+      border: none;
+      color: #696969;
+    }
+    a:hover {
+      border-radius: 15px;
+    }
+  }
+  .active {
+    a {
+      background: #93c9ff;     /*背景の色を変える*/
+      border-radius: 15px; 
+    }
+  }
+}

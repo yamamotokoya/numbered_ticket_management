@@ -11,4 +11,11 @@ ja:
       viewing_time:
         hold_at: 開園日
         program_name: 観覧時間
-        capacity: 定員数 
+        capacity: 定員数
+  views:
+    pagination:
+      first:  <i class="fas fa-angle-double-left"></i>
+      last:  <i class="fas fa-angle-double-right"></i>
+      previous: <i class="fas fa-angle-left"></i>
+      next: <i class="fas fa-angle-right"></i>
+      truncate: "..."
