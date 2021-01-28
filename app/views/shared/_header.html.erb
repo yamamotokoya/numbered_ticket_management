@@ -1,14 +1,30 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <%# <a class="navbar-brand" href="#">Navbar</a> %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <% if logged_in? %>
-          <% if admin_user? %>
-            <%= link_to '観覧回作成', new_viewing_time_path, class: 'nav-link' %>
+          <% if current_user.admin? %>
+            <div class="dropdown"> 
+              <div id="btnOpenMenu" class="nav-link dropdown-toggle"  
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                管理画面
+              </div>
+              <div class="dropdown-menu" aria-labelledby="btnOpenMenu">
+                <button class="dropdown-item" type="button">
+                  <%= link_to "会員一覧", admin_users_path, class: 'nav-link' %>
+                </button>
+                <button class="dropdown-item" type="button">
+                  <%= link_to "観覧回一覧", admin_viewing_times_path, class: 'nav-link' %>
+                </button>
+                <button class="dropdown-item" type="button">
+                  <%= link_to "観覧回作成", new_admin_viewing_time_path, class: 'nav-link' %>
+                </button>
+              </div>
+            </div>
           <% end %>
           <%= link_to 'マイページ', current_user, class: 'nav-link' %>
           <%= link_to '予約画面', time_table_path, class: 'nav-link' %>

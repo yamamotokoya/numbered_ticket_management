@@ -1,0 +1,7 @@
+<tr>
+  <th scope="row"><%= viewing_time.id %></th>
+  <td><%= viewing_time.hold_at %></td>
+  <td><%= link_to viewing_time.program_name, admin_viewing_time_path(viewing_time)  %></td>
+  <td><%= viewing_time.capacity %></td>
+  <td><%= link_to "編集", edit_admin_viewing_time_path(viewing_time) %></td>
+</tr>

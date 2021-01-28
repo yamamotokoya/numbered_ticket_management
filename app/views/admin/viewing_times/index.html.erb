@@ -1,0 +1,27 @@
+<button type="button" class="btn btn-outline-secondary" style="margin-top: 50px;">
+  <%= link_to "本日の観覧スケジュールを見る", admin_today_viewing_time_path, style: "color: black;" %>
+</button>
+<table class="table table-dark table-striped" style="margin-top: 10px;">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">開園日</th>
+      <th scope="col">観覧時間</th>
+      <th scope="col">定員数</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @viewing_times.each do |viewing_time| %>
+      <tr>
+        <th scope="row"><%= viewing_time.id %></th>
+        <td>
+          <%= link_to viewing_time.hold_at, admin_viewing_time_path(viewing_time), style: "color: white;" %>
+        </td>
+        <td><%= viewing_time.program_name %></td>
+        <td><%= viewing_time.capacity %></td>
+        <td><%= link_to "編集", edit_admin_viewing_time_path(viewing_time) %></td>
+        <td><%= link_to "削除", admin_viewing_time_path(viewing_time), method: :delete, style: "color: red;" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
