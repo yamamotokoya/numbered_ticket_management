@@ -6,8 +6,12 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-  resources :users
-  resources :viewing_times
   get '/time_table', to: 'viewing_times#show_time_table'
   get '/reserve/:id', to: 'viewing_times#reserve', as: 'reserve'
+  resources :users
+  namespace :admin do
+    resources :users
+    resources :viewing_times
+    get '/today_viewing_time', to: 'viewing_times#today_viewing_time'
+  end
 end

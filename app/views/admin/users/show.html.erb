@@ -1,0 +1,16 @@
+<div class="card">
+  <div class="card-header">
+    <%= @user.name %>
+  </div>
+  <div class="card-body">
+    <p class="card-text">email: <%= @user.email %></p>
+    <% if @user.viewing_time_id %>
+      <p class="card-text">予約状況: <%= @user.viewing_time.hold_at %></p>
+      <p class="card-text">予約時間: <%= @user.viewing_time.program_name %></p>
+    <% else %>
+      <p class="card-text">予約状況: なし</p>
+      <p class="card-text"></p>
+    <% end %>
+    <%= link_to "会員情報編集", edit_admin_user_path(@user), class: "btn btn-primary" %>
+  </div>
+</div>

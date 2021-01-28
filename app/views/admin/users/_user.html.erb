@@ -1,0 +1,17 @@
+<tr>
+  <th scope="row"><%= user.id %></th>
+  <td><%= link_to "#{user.name}", admin_user_path(user), style: "color: white;" %></td>
+  <td><%= user.email %></td>
+  <% if user.viewing_time_id %>
+    <td><%= user.viewing_time.hold_at %></td>
+    <td><%= user.viewing_time.program_name %></td>
+  <% else %>
+    <td>予約なし</td>
+    <td></td>
+  <% end %>
+  <% if !user.admin? %>
+  <td><%= link_to "退会処理", admin_user_path(user), method: :delete, style: "color: red;" %></td>
+  <% else %>
+  <td></td>
+  <% end %>
+</tr>

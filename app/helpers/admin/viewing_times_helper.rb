@@ -1,0 +1,2 @@
+module Admin::ViewingTimesHelper
+end

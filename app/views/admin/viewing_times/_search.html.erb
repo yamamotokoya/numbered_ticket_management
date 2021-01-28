@@ -1,0 +1,9 @@
+<%# <form class="d-flex">
+  <input class="form-control me-2 w-25 p-3" type="search" placeholder="お客様の名前をご入力ください" aria-label="Search" style="margin-top: 10px;">
+  <button class="btn btn-outline-success" type="submit" style="margin-top: 10px;">検索</button>
+</form> %>
+
+<%= form_with url: admin_viewing_time_path(viewing_time), method: :get, class: "d-flex", local: true do |f| %>
+  <%= f.text_field :user_name, class: "form-control me-2 w-25 p-3", placeholder: "お客様の名前をご入力ください",      style: "margin-top: 10px;" %>
+  <%= f.submit "検索", class:"btn btn-outline-success",style: "margin-top: 10px;" %>
+<% end %>

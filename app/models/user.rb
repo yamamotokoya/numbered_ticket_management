@@ -17,4 +17,8 @@ class User < ApplicationRecord
   def reserved_today?
     self.viewing_time.hold_at != Date.current 
   end
+
+  def delete_viewing_time_id
+    update_columns(viewing_time_id: nil)
+  end
 end
