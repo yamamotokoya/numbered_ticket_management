@@ -1,0 +1,11 @@
+<tr>
+  <th scope="row"><%= user.id %></th>
+  <td><%= user.name %></td>
+  <td><%= user.email %></td>
+  <td></td>
+  <% if user.checked_in_yet?(@viewing_time) %>
+    <td><%= render partial: 'checkin_form', locals: {user: user, viewing_time: @viewing_time} %></td>
+  <% else %>
+    <td><button type="button" class="btn btn-secondary">受付済</button></td>
+  <% end %>
+</tr>
