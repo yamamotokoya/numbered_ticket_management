@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_26_081338) do
+ActiveRecord::Schema.define(version: 2021_01_28_040744) do
+
+  create_table "receptions", force: :cascade do |t|
+    t.integer "viewing_time_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "viewing_time_id"], name: "index_receptions_on_user_id_and_viewing_time_id", unique: true
+    t.index ["user_id"], name: "index_receptions_on_user_id"
+    t.index ["viewing_time_id"], name: "index_receptions_on_viewing_time_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name", null: false

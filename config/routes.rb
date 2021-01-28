@@ -10,8 +10,10 @@ Rails.application.routes.draw do
   get '/reserve/:id', to: 'viewing_times#reserve', as: 'reserve'
   resources :users
   namespace :admin do
+    resources :receptions, only: :create
     resources :users
     resources :viewing_times
     get '/today_viewing_time', to: 'viewing_times#today_viewing_time'
+    get '/not_checked_in', to: 'viewing_times#not_checked_in'
   end
 end

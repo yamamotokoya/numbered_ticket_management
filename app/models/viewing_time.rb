@@ -5,6 +5,7 @@ class ViewingTime < ApplicationRecord
   validates :capacity, numericality: { greater_than_or_equal_to: 0, message: '0人以上で設定してください' }
 
   has_many :users
+  has_many :receptions
   
   def decrease_capacity
     update_columns(capacity: self.capacity -= 1)
