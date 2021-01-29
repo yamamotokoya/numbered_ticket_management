@@ -18,5 +18,18 @@ module SessionsHelper
     session.delete(:user_id)
   end
 
+  def redirect_to_login
+    redirect_to login_path, flash: {
+      messages: {
+        danger: "ログインまたは会員登録してください" 
+      }
+    } unless logged_in?
+  end
+
+  def is_current_user?(user)
+    user == current_user
+  end
+
+
 
 end

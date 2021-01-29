@@ -3,9 +3,8 @@ class ApplicationController < ActionController::Base
   include UsersHelper
   add_flash_types :success, :info, :danger, :warning
 
-  def redirect_to_login
-    redirect_to login_path, danger: "ログインしてください" unless logged_in?
+  def admin_user?
+    redirect_to root_path unless current_user.admin?
   end
-
 
 end

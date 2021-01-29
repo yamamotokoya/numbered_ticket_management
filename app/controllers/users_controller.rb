@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user?, only: [:show, :edit]
-  before_action :collect_user, only: [:show, :edit]
+  before_action :redirect_to_login, only: [:show, :edit]
+  before_action :collect_user, only: [:show, :edit, :update]
   def index
   end
 
@@ -32,9 +32,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = User.find(params[:id])
-    if user.update(user_params)
-      redirect_to user, flash: {
+    if @user.update(user_params)
+      redirect_to @user, flash: {
         messages: {
           success: '会員情報を更新しました'
         }
@@ -54,17 +53,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 
-  def logged_in_user?
-    redirect_to login_path, flash: {
-      messages: {
-        danger: 'ログインまたは会員登録してください'
-      }
-    } unless logged_in?
-  end
 
   def collect_user
     @user = User.find(params[:id])
-    if @user == current_user
+    if is_current_user?(@user)
       @user
     else
       redirect_to time_table_path, flash: {

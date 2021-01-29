@@ -1,19 +1,19 @@
 class Admin::ViewingTimesController < ApplicationController
   before_action :admin_user?
-  before_action :collect_viewing_time, only: [:show, :edit, :update, :destroy, :not_checked_in]
-  before_action :set_reception, only: [:show, :not_checked_in]
-  before_action :get_users, only: [:show, :not_checked_in]
+  before_action :set_viewing_time, only: [:show, :edit, :update, :destroy, :not_checked_in]
+  before_action :initialize_reception, only: [:show, :not_checked_in]
+
   def index
     @viewing_times = ViewingTime.all
   end
 
   def show
-    @users = User.paginate(@users, params[:page])
-    @searched_users = User.paginate(@searched_users, params[:page]) if params[:user_name]
+    @users = User.paginate(User.find_users(@viewing_time), params[:page])
+    @searched_users = User.paginate(searched_users, params[:page]) if params[:user_name]
   end
   
   def not_checked_in
-    @users = User.paginate(@not_checked_in_users, params[:page])
+    @users = User.paginate(@viewing_time.not_checked_in_users, params[:page])
   end
 
   def new
@@ -56,7 +56,7 @@ class Admin::ViewingTimesController < ApplicationController
 
   def destroy
     @viewing_time.destroy
-    @viewing_time.users.each {|user| user.delete_viewing_time_id}
+    @viewing_time.users_viewing_time_id_delete
     redirect_to admin_viewing_times_path, flash: {
       messages: {
         warning: "1件観覧回を削除しました"
@@ -74,21 +74,15 @@ class Admin::ViewingTimesController < ApplicationController
       params.require(:viewing_time).permit(:hold_at, :program_name, :capacity)
     end
 
-    def admin_user?
-      redirect_to root_path unless current_user.admin?
-    end
-
-    def collect_viewing_time
+    def set_viewing_time
       @viewing_time = ViewingTime.find(params[:id])
     end
 
-    def set_reception
+    def initialize_reception
       @reception = Reception.new
     end
 
-    def get_users
-      @users = User.find_users(@viewing_time)
-      @searched_users = User.search(@viewing_time, params[:user_name])
-      @not_checked_in_users = User.find_users(@viewing_time).select { |user| user.checked_in_yet?(@viewing_time) }
+    def searched_users
+      User.search(@viewing_time, params[:user_name])
     end
 end
