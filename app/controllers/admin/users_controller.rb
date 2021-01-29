@@ -56,23 +56,12 @@ class Admin::UsersController < ApplicationController
     }
   end
 
-  def search
-    @user = User.find_by(name: params[:user_name]) 
-  end
-
   private
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :viewing_time_id)
   end
 
-  def admin_user?
-    redirect_to root_path, flash: {
-      messages: {
-        danger: 'アクセス権限がありません'
-      }
-    } unless current_user.admin?
-  end
 
   def collect_user
     @user = User.find(params[:id])

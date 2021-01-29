@@ -5,7 +5,8 @@ class User < ApplicationRecord
   validates :password, presence: true
 
   belongs_to :viewing_time, optional: true
-  has_many :receptions
+  has_many :receptions, dependent: :destroy
+
 
   def reserved?
      viewing_time_id.nil?
@@ -13,6 +14,7 @@ class User < ApplicationRecord
 
   def reserved(viewing_time)
     update_columns(viewing_time_id: viewing_time.id)
+    viewing_time.decrease_capacity
   end
 
   def reserved_today?
