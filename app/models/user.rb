@@ -7,6 +7,10 @@ class User < ApplicationRecord
   belongs_to :viewing_time, optional: true
   has_many :receptions, dependent: :destroy
 
+  scope :search, ->(viewing_time, user_name) { where("viewing_time_id = ? and name LIKE ?", 
+    viewing_time.id, "%#{user_name}%" ) }
+  scope :find_users, ->(viewing_time) { where("viewing_time_id = ?", viewing_time.id)}
+  scope :find_users_by_params, ->(viewing_time_id) { where("viewing_time_id = ?", viewing_time_id) }
 
   def reserved?
      viewing_time_id.nil?
@@ -32,19 +36,6 @@ class User < ApplicationRecord
   def checked_in?(viewing_time)
     self.receptions.include?(
       receptions.find { |reception| reception.checked_in_user?(viewing_time) })
-  end
-
-  def self.search(viewing_time, user_name)
-    User.where("viewing_time_id = ? and name LIKE ?",
-      viewing_time.id, "%#{user_name}%" ) if user_name
-  end
-
-  def self.find_users(viewing_time)
-    User.where("viewing_time_id = ?", viewing_time.id)
-  end
-
-  def self.find_users_by_params(params)
-    User.where("viewing_time_id = ?", params)
   end
 
   def self.paginate(array, page)
