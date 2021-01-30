@@ -6,8 +6,14 @@
   <% if current_user.viewing_time_id == viewing_time.id %> 
     <td>予約中</td>
   <% elsif check_user %>
-    <td><button><%= link_to "予約する", reserve_path(viewing_time) %></button></td>
+    <td>
+      <%= form_with url:reserve_path, local: true do |f| %>
+        <%= f.hidden_field :viewing_time_id, value: viewing_time.id %>
+        <%= f.submit '予約する', class: "btn btn-primary" %>
+      <% end %>
+    </td>
   <% else %>
     <td>予約できません</td>
   <% end %>
 </tr>
+
