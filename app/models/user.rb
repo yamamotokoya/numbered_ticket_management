@@ -13,7 +13,11 @@ class User < ApplicationRecord
   scope :find_users_by_params, ->(viewing_time_id) { where("viewing_time_id = ?", viewing_time_id) }
 
   def reserved?
-     viewing_time_id.nil?
+     !viewing_time_id.nil?
+  end
+  
+  def reserved_today?
+    self.viewing_time.hold_at == Date.current 
   end
 
   def reserved(viewing_time)
@@ -21,9 +25,6 @@ class User < ApplicationRecord
     viewing_time.decrease_capacity
   end
 
-  def reserved_today?
-    self.viewing_time.hold_at != Date.current 
-  end
 
   def delete_viewing_time_id
     update_columns(viewing_time_id: nil)

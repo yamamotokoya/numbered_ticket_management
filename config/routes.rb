@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
   get '/time_table', to: 'viewing_times#show_time_table'
-  resources :users
   post '/reserve', to: 'reservation#create', as: 'reserve'
+  get '/show_ticket/:id', to: 'users#show_ticket', as: 'show_ticket'
+  post 'receptions', to: 'receptions#create', as: 'receptions'
+  resources :users
   namespace :admin do
     resources :receptions, only: :create
     resources :users

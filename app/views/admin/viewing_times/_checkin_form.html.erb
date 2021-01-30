@@ -1,5 +1,0 @@
-<%= form_with model: @reception, url: admin_receptions_path, local: true do |f| %>
-  <%= f.hidden_field :user_id, value: user.id %>
-  <%= f.hidden_field :viewing_time_id, value: viewing_time.id %>
-  <%= f.submit "受付", class: "btn btn-primary" %>
-<% end %>

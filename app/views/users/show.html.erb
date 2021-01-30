@@ -2,7 +2,7 @@
   <%# <img src="..." class="card-img-top" alt="..."> %>
   <div class="card-body">
     <h5 class="card-title">本日の予約</h5>
-      <% if !current_user.reserved? && !current_user.reserved_today? %>
+      <% if !check_user %>
         <p class="card-text">日付: <%= current_user.viewing_time.hold_at %></p> 
         <p class="card-text">予約回: <%= current_user.viewing_time.program_name %></p> 
         <p class="card-text">予約時間に間に合うようにお越しください</p> 
