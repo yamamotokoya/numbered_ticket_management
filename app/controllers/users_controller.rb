@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :redirect_to_login, only: [:show, :edit]
-  before_action :collect_user, only: [:show, :edit, :update]
+  before_action :redirect_to_login, only: [:show, :edit, :show_ticket]
+  before_action :redirect_to_time_table, only: :show_ticket
+  before_action :collect_user, only: [:show, :edit, :update, :show_ticket]
   def index
   end
 
@@ -46,6 +47,10 @@ class UsersController < ApplicationController
     end
   end
 
+  def show_ticket
+    @reception = Reception.new
+    @viewing_time = ViewingTime.find(@user.viewing_time_id)
+  end
 
   private
 
@@ -65,6 +70,10 @@ class UsersController < ApplicationController
         }
       }
     end
+  end
+
+  def redirect_to_time_table
+    redirect_to time_table_path if check_user
   end
 
 

@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController
   before_action :admin_user?
-  before_action :collect_user, only: [:edit, :show, :update, :destroy]
+  before_action :set_user, only: [:edit, :show, :update, :destroy]
 
   def index
     @users = User.all.page(params[:page]).per(10)
@@ -63,7 +63,7 @@ class Admin::UsersController < ApplicationController
   end
 
 
-  def collect_user
+  def set_user
     @user = User.find(params[:id])
   end
 end
