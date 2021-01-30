@@ -6,7 +6,7 @@
         <p class="card-text">日付: <%= current_user.viewing_time.hold_at %></p> 
         <p class="card-text">予約回: <%= current_user.viewing_time.program_name %></p> 
         <p class="card-text">予約時間に間に合うようにお越しください</p> 
-        <% else %>
+      <% else %>
         <p class="card-text">本日の予約はありません</p> 
       <% end %>
     <%= link_to '予約画面', time_table_path, class: 'btn btn-primary' %>

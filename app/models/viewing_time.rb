@@ -6,10 +6,12 @@ class ViewingTime < ApplicationRecord
 
   has_many :users
   has_many :receptions, dependent: :destroy
+
+  scope :get_today_schedule, -> { where("hold_at = ? and capacity > ?", Date.current, 0) }
+
   def decrease_capacity
     update_columns(capacity: self.capacity -= 1)
   end
-
 
   def reserved_other_time?
     time_table = get_today_schedule
@@ -22,11 +24,6 @@ class ViewingTime < ApplicationRecord
 
   def not_checked_in_users
     self.users.select { |user| user.checked_in_yet?(self)}
-  end
-
-
-  def self.get_today_schedule
-    ViewingTime.where("hold_at = ? and capacity > ?", Date.current, 0)
   end
 
 end

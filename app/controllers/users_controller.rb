@@ -56,7 +56,7 @@ class UsersController < ApplicationController
 
   def collect_user
     @user = User.find(params[:id])
-    if is_current_user?(@user)
+    if is_current_user?(@user) || current_user.admin?
       @user
     else
       redirect_to time_table_path, flash: {
