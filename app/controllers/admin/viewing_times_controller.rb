@@ -1,6 +1,7 @@
 class Admin::ViewingTimesController < ApplicationController
   before_action :admin_user?
-  before_action :set_viewing_time, only: [:show, :edit, :update, :destroy, :not_checked_in]
+  before_action :set_viewing_time, only: [:show, :edit, :update, :destroy]
+  before_action :get_viewing_time_id, only: :not_checked_in
   before_action :initialize_reception, only: [:show, :not_checked_in]
 
   def index
@@ -9,11 +10,13 @@ class Admin::ViewingTimesController < ApplicationController
 
   def show
     @users = User.paginate(User.find_users(@viewing_time), params[:page])
-    @searched_users = User.paginate(searched_users, params[:page]) if params[:user_name]
+    @find_users = User.paginate(User.search(@viewing_time, params[:user_name]), params[:page]) if params[:user_name]
   end
   
   def not_checked_in
-    @users = User.paginate(@viewing_time.not_checked_in_users, params[:page])
+    users = User.find_users_by_params(@viewing_time)
+    users = users.select {|user|user.checked_in_yet?(@viewing_time)}
+    @users = User.paginate(users, params[:page])
   end
 
   def new
@@ -78,11 +81,12 @@ class Admin::ViewingTimesController < ApplicationController
       @viewing_time = ViewingTime.find(params[:id])
     end
 
+    def get_viewing_time_id
+      @viewing_time = ViewingTime.find(params[:viewing_time_id])
+    end
+
     def initialize_reception
       @reception = Reception.new
     end
 
-    def searched_users
-      User.search(@viewing_time, params[:user_name])
-    end
 end

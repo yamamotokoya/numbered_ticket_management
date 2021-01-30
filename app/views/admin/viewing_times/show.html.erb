@@ -6,16 +6,16 @@
 <table class="table table-striped table-hover">
   <%= render 'headder' %>
   <tbody>
-    <% if @searched_users %>
-      <%= render partial: 'user', collection: @searched_users, as: "user" %>
+    <% if @find_users %>
+      <%= render partial: 'admin/viewing_times/user', collection: @find_users, as: 'user'%>
     <% else %>
-      <%= render partial: 'user', collection: @users %>
+      <%= render partial: 'admin/viewing_times/user', collection: @users %>
     <% end %>
   </tbody>
 </table>
-<% if @searched_users %>
+<% if @find_users %>
   <% provide(:url, admin_viewing_time_path(@viewing_time))%>
-  <%= render partial: 'btn', locals: { users: @searched_users } %>
+  <%= render partial: 'btn', locals: { users: @find_users } %>
 <% else %>
   <% provide(:url, admin_today_viewing_time_path) %>
   <%= render partial: 'btn', locals: { users: @users }%>
