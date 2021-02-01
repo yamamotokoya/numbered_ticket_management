@@ -59,6 +59,7 @@ class UsersController < ApplicationController
   end
 
 
+
   def collect_user
     @user = User.find(params[:id])
     if is_current_user?(@user) || current_user.admin?
