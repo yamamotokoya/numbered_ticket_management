@@ -2,21 +2,21 @@
   <div class="card-header">
     整理券
   </div>
-  <div class="card-body">
+  <div class="card-body js-card-body">
     <h5 class="card-title">氏名: <%= current_user.name %></h5>
     <p class="card-text">日付: <%= current_user.viewing_time.hold_at %></p>
     <p class="card-text">観覧回: <%= current_user.viewing_time.program_name%>の回</p>
     <% if current_user.checked_in_yet?(@viewing_time)%>
-    <div style="margin-top: 100px;">
-    <h5 style="color: red; font-weight: bold;">＊こちらのボタンは係員が押します。お客様はクリックしないでください。</h5>
-      <%= form_with model: @reception, url: receptions_path, local: true do |f| %>
-        <%= f.hidden_field :user_id, value: current_user.id %>
-        <%= f.hidden_field :viewing_time_id, value: @viewing_time.id %>
-        <%= f.submit '受付する', class: "btn btn-primary" %>
-      <% end %>
+      <div class="js-check_in_form" style="margin-top: 100px;">
+        <h5 style="color: red; font-weight: bold;">＊こちらのボタンは係員が押します。お客様はクリックしないでください。</h5>
+        <%= form_with model: @reception, url: receptions_path do |f| %>
+          <%= f.hidden_field :user_id, value: current_user.id %>
+          <%= f.hidden_field :viewing_time_id, value: @viewing_time.id %>
+          <%= f.submit '受付する', class: "btn btn-primary" %>
+        <% end %>
+      </div>
     <% else %>
-      <button type="button" class="btn btn-danger">受付済</button>
+        <button type="button" class="btn btn-danger">受付済</button>
     <% end %>
-    </div>
   </div>
 </div>

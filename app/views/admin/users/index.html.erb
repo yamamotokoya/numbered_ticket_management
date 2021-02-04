@@ -1,4 +1,5 @@
-<table class="table table-dark table-striped" style="margin-top: 50px;">
+<%= text_field_tag :name, "", placeholder: "検索したい氏名をご入力ください", class: "js-search_form" %>
+<table class="table js-users-table table-dark table-striped" style="margin-top: 50px;">
 <thead>
     <tr>
       <th scope="col">id</th>
@@ -8,7 +9,7 @@
       <th scope='col'>予約回</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="js-users_info">
     <%= render @users%>
   </tbody>
 </table>
