@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'receptions', to: 'receptions#create', as: 'receptions'
   resources :users
   namespace :admin do
+    resources :searches, only: :index, defaults: { format: :json }
     resources :receptions, only: :create
     resources :users
     resources :viewing_times

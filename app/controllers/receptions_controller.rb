@@ -1,8 +1,12 @@
 class ReceptionsController < ApplicationController
   def create
     reception = Reception.new(reception_params)
-     reception.save
-      redirect_to show_ticket_path(current_user)
+    if reception.save
+      respond_to do |format|
+        format.html {redirect_to show_ticket_path(current_user)}
+        format.js
+      end
+    end
   end
 
   private
