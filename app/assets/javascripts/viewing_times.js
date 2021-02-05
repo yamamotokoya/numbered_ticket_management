@@ -17,7 +17,7 @@ $(document).on('turbolinks:load', function(){
           url: '/time_table',
           type: 'GET',
           data: { 
-            viewing_time: { id: id, capacity: capacity } 
+            viewing_time: { id: id,capacity: capacity } 
             },
           dataType: 'json'
         })
