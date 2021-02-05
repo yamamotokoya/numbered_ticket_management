@@ -5,11 +5,11 @@ class ReservationController < ApplicationController
 
   def create
     current_user.reserved(@viewing_time)
-    redirect_to time_table_path, flash: {
-      messages: {
-        success: "#{@viewing_time.program_name}の回を予約しました"
-      }
-    }
+    respond_to do |format|
+      format.html { redirect_to time_table_path, flash: { messages: { 
+                    success: "#{@viewing_time.program_name}の回を予約しました"}}}
+      format.js
+    end
   end
 
   private 

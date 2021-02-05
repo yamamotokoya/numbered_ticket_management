@@ -1,0 +1,12 @@
+$('.reserve-form').remove();
+
+<% if current_user.viewing_time_id == viewing_time.id %> 
+
+  $('.js-time-table').append("<%= j(render 'reservation') %>")
+
+<% else %>
+
+  $('.js-time-table').append("<%= j(render 'unreserve') %>")
+
+<% end %>
+

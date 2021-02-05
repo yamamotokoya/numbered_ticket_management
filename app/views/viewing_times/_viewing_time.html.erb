@@ -1,19 +1,26 @@
-<tr>
+<tr class="js-time-table">
   <th scope="row"><%= viewing_time.id %></th>
   <td><%= viewing_time.hold_at %></td>
   <td><%= viewing_time.program_name %></td>
-  <td><%= viewing_time.capacity %></td>
+  <td class="capacity" data-id=<%= viewing_time.id %>>
+      <%= viewing_time.capacity %>
+  </td>
   <% if current_user.viewing_time_id == viewing_time.id %> 
-    <td>予約中</td>
+
+    <td class="reserving">予約中</td>
+
   <% elsif check_user %>
-    <td>
+
+    <td class="reserve-form">
       <%= form_with url:reserve_path, local: true do |f| %>
         <%= f.hidden_field :viewing_time_id, value: viewing_time.id %>
         <%= f.submit '予約する', class: "btn btn-primary" %>
       <% end %>
     </td>
+
   <% else %>
-    <td>予約できません</td>
+
+    <td class="unreserve">予約できません</td>
+
   <% end %>
 </tr>
-
