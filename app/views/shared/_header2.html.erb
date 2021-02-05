@@ -1,0 +1,21 @@
+<header>
+  <h1 class="app-title">整理券管理</h1>
+  <nav>
+    <ul class="nav-list">
+    <% if logged_in? %>
+      <li class="nav-item"><%= link_to "整理券をとる", time_table_path, class: "nav-item-link"%></li>
+      <% if !check_user %>
+      <li class="nav-item">
+        <%= link_to "整理券を提示する", show_ticket_path(current_user), class: "nav-item-link"%>
+      </li>
+      <% end %>
+      <li class="nav-item"><%= link_to "マイページ", current_user, class: "nav-item-link"%></li>
+      <li class="nav-item"><%= link_to "設定", edit_user_path(current_user), class: "nav-item-link"%></li>
+      <li class="nav-item"><%= link_to "ログアウト", logout_path, method: :delete, class: "nav-item-link"%></li>
+    <% else %>
+      <li class="nav-item"><%= link_to "新規登録", signup_path, class: "nav-item-link"%></li>
+      <li class="nav-item"><%= link_to "ログイン", login_path, class: "nav-item-link"%></li>
+    <% end %>
+    </ul>
+  </nav>
+</header>
