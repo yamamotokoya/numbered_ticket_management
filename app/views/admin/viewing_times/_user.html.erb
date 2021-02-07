@@ -1,8 +1,10 @@
 <tr>
   <th scope="row"><%= user.id %></th>
-  <td><%= link_to user.name, admin_user_path(user), style: "color: black;" %></td>
+  <td>
+    <%= link_to user.name, admin_user_path(user), style: "color: black;" %>
+  </td>
   <% if user.checked_in_yet?(@viewing_time) %>
-    <td>
+    <td class="reception-btn" data-reception-id="2" data-userId="<%= user.id %>" data-viewingTimeId="<%= @viewing_time.id %>">
       <%= form_with model: @reception, url: admin_receptions_path, local: true do |f| %>
         <%= f.hidden_field :user_id, value: user.id %>
         <%= f.hidden_field :viewing_time_id, value: @viewing_time.id %>
@@ -10,7 +12,9 @@
       <% end %>
     </td>
   <% else %>
-    <td><button type="button" class="btn btn-secondary">受付済</button></td>
+    <td class="reception-btn" data-reception-id="1" data-userId="<%= user.id %>">
+      <button type="button" class="btn btn-secondary">受付済</button>
+    </td>
   <% end %>
   <td><%= user.email %></td>
   <td></td>
