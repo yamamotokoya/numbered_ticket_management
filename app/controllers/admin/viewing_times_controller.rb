@@ -11,6 +11,11 @@ class Admin::ViewingTimesController < ApplicationController
   def show
     @users = User.paginate(User.find_users(@viewing_time), params[:page])
     @find_users = User.paginate(User.search(@viewing_time, params[:user_name]), params[:page]) if params[:user_name]
+
+    respond_to do |f|
+      f.html 
+      f.json { @reception = Reception.find_by(user_id: params[:reception][:user_id], viewing_time_id: params[:reception][:viewing_time_id])}
+    end
   end
   
   def not_checked_in
@@ -88,5 +93,6 @@ class Admin::ViewingTimesController < ApplicationController
     def initialize_reception
       @reception = Reception.new
     end
+
 
 end

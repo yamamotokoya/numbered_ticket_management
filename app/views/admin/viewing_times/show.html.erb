@@ -5,7 +5,7 @@
 <p style="float: right;">予約者数<%= @viewing_time.users.length%>人</p>
 <table class="table table-striped table-hover">
   <%= render 'headder' %>
-  <tbody>
+  <tbody class="js-tbody" data-viewingTimeId="<%= @viewing_time.id %>">
     <% if @find_users %>
       <%= render partial: 'admin/viewing_times/user', collection: @find_users, as: 'user'%>
     <% else %>
