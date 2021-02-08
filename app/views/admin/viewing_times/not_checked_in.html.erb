@@ -1,7 +1,11 @@
+<p style="margin-top: 10px; color: red; border: 1px solid black; padding: 10px; display: inline-block; border-radius: 15px; background: #ccc;">
+  受付が済んでない人数:<%= @users.length %>人
+</p>
+
 <table class="table table-striped table-hover">
   <%= render 'headder' %>
   <tbody>
-  <%= render partial: 'user', collection: @users %>
+    <%= render partial: 'user', collection: @users %>
   </tbody>
 </table>
 <% provide(:url, admin_viewing_time_path(@viewing_time)) %>
